@@ -26,12 +26,12 @@ jobs:
           echo "export ANDROID_HOME=${RUNNER_WORKSPACE}/android-sdk" >> $GITHUB_ENV
           echo "export PATH=${RUNNER_WORKSPACE}/android-sdk/cmdline-tools/latest/bin:${PATH}" >> $GITHUB_ENV
 
-      - name: Set up Gradle
-        uses: gradle/wrapper-action@v2
-        with:
-          gradle-version: '7.5'
-        env:
-          GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
+      - name: Install Gradle
+        run: |
+          wget https://services.gradle.org/distributions/gradle-7.5-bin.zip -P /tmp
+          unzip -d /opt/gradle /tmp/gradle-7.5-bin.zip
+          echo "export GRADLE_HOME=/opt/gradle/gradle-7.5" >> $GITHUB_ENV
+          echo "export PATH=$GRADLE_HOME/bin:$PATH" >> $GITHUB_ENV
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
