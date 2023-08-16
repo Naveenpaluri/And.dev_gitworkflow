@@ -18,31 +18,31 @@ jobs:
         with:
           java-version: 17
 
-      - name: Install Android SDK Command Line Tools
+      - name: Install Android SDK command-line tools
         run: |
-          apt-get install wget -y
-          mkdir -p $HOME/android-sdk/cmdline-tools
-          cd $HOME/android-sdk/cmdline-tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O cmdline-tools.zip
-          unzip -q cmdline-tools.zip
-          rm cmdline-tools.zip
-          export ANDROID_HOME=$HOME/android-sdk
-          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+          wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O tools.zip
+          unzip tools.zip -d android-sdk
+          yes | android-sdk/cmdline-tools/bin/sdkmanager "platform-tools" "platforms;android-33"
+          echo "export ANDROID_HOME=${RUNNER_WORKSPACE}/android-sdk" >> $GITHUB_ENV
+          echo "export PATH=${RUNNER_WORKSPACE}/android-sdk/cmdline-tools/latest/bin:${PATH}" >> $GITHUB_ENV
 
-      - name: Download and unzip Gradle
-        run: |
-          wget -q https://services.gradle.org/distributions/gradle-7.2-bin.zip
-          unzip -q gradle-7.2-bin.zip
-          export GRADLE_HOME=$PWD/gradle-7.2
-          export PATH=$GRADLE_HOME/bin:$PATH
+      - name: Set up Gradle
+        uses: gradle/wrapper-action@v2
+        with:
+          gradle-version: '7.5'
+        env:
+          GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.8.0'  # Specify the Flutter version you want
+          flutter-version: '2.8.0'
+        env:
+          FLUTTER_HOME: ${{ steps.flutter.outputs.flutter-dir }}
+          PATH: ${{ steps.flutter.outputs.flutter-dir }}/bin:$PATH
 
       - name: Build APK
-        working-directory: ./android
+        working-directory: ./And.dev_gitworkflowandroid
         run: |
           flutter build apk
 
@@ -50,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: apk
-          path: ./android/app/build/outputs/flutter-apk/app-release.apk
+          path: ./And.dev_gitworkflow/build/app/outputs/flutter-apk/app-release.apk
