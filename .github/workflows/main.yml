@@ -19,26 +19,11 @@ jobs:
           java-version: 17
 
       - name: Set up Gradle
-        uses: gradle/wrapper-action@v2
+        uses: gradle/wrapper-action@v1 # Use v1 here
+        with:
+          gradle-version: 7.2 # Specify the Gradle version you want
 
       - name: Set up Android SDK
-        uses: actions/setup-android@v2
+        uses: react-native-community/setup-android@v2
         with:
-          sdk-version: '30'
-          # Additional setup options if needed
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '2.8.0'  # Specify the Flutter version you want
-
-      - name: Build APK
-        working-directory: And.dev_gitworkflow/android/
-        run: |
-          flutter build apk
-
-      - name: Archive APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: apk
-          path: And.dev_gitworkflow/build/app/outputs/flutter-apk/app-release.apk
+          sdk-version: '30
