@@ -18,12 +18,40 @@ jobs:
         with:
           java-version: 17
 
-      - name: Set up Gradle
-        uses: gradle/wrapper-action@v1 # Use v1 here
-        with:
-          gradle-version: 7.2 # Specify the Gradle version you want
+      - name: Download and unzip Gradle
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-7.2-bin.zip
+          unzip -q gradle-7.2-bin.zip
+          export GRADLE_HOME=$PWD/gradle-7.2
+          export PATH=$GRADLE_HOME/bin:$PATH
 
       - name: Set up Android SDK
-        uses: react-native-community/setup-android@v2
+        run: |
+          echo 'count=0' >> $GITHUB_ENV
+          echo 'max=5' >> $GITHUB_ENV
+          while [ $count -lt $max ]; do
+            sdkmanager --list || true
+            count=$(($count + 1))
+            if [ $? -eq 0 ]; then
+              break
+            else
+              sleep 15
+            fi
+          done
+          sdkmanager --list
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          sdk-version: '30
+          flutter-version: '2.8.0'  # Specify the Flutter version you want
+
+      - name: Build APK
+        working-directory: ./android
+        run: |
+          flutter build apk
+
+      - name: Archive APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: ./android/app/build/outputs/flutter-apk/app-release.apk
