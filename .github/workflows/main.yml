@@ -61,12 +61,13 @@ jobs:
         
     
     - name: Display Flutter version
-      run: flutter --version
+      run: flutter doctor
 
     - name: Download and install Gradle
       run: |
         cd $HOME
         sdk install gradle 8.3
+   
     - name: Display Gradle version
       run: gradle --version
 
