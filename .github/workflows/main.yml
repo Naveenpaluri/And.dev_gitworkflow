@@ -50,6 +50,7 @@ jobs:
 
     - name: Install required SDK packages
       run: |
+        source $GITHUB_ENV
         sdkmanager "platform-tools" "build-tools;30.0.3"
 
     
