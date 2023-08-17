@@ -40,7 +40,7 @@ jobs:
       run: |
         cd /opt
         wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-        unzip commandlinetools-linux-7583922_latest.zip -d android-sdk
+        unzip commandlinetools-linux-10406996_latest.zip -d android-sdk
 
     - name: Set up Android SDK environment
       run: |
