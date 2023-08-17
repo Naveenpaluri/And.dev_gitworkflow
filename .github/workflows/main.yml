@@ -46,13 +46,9 @@ jobs:
         mkdir latest
         mv bin/ lib/ NOTICE.txt source.properties latest/
         cd latest/bin/
-        export ANDROID_HOME="/opt/android_sdk"
-        export ANDROID_SDK_ROOT="/opt/android_sdk"
-        export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+        echo "export ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
+        echo "export ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
+        echo "export PATH=\$PATH:\$ANDROID_HOME/tools/bin:\$ANDROID_HOME/platform-tools" >> $GITHUB_ENV
         sdkmanager "platform-tools" "build-tools;30.0.3"
-
-        
-    - name: Set up Android SDK
-      run: export ANDROID_SDK_ROOT=$HOME/android-sdk
 
     
