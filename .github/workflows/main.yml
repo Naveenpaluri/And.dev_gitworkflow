@@ -37,4 +37,4 @@ jobs:
       - name: Display Java and Android SDK Versions
         run: |
           java -version
-          sdkmanager --version
+          sdkmanager --version #version
