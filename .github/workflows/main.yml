@@ -45,8 +45,10 @@ jobs:
         cd cmdline-tools/
         mkdir latest
         mv bin/ lib/ NOTICE.txt source.properties latest/
+        cd latest/bin/
         sdkmanager "platform-tools" "build-tools;30.0.3"
-   
+
+        
     - name: Set up Android SDK
       run: export ANDROID_SDK_ROOT=$HOME/android-sdk
 
