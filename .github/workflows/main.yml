@@ -54,14 +54,7 @@ jobs:
       run: |
         cd $HOME
         git clone https://github.com/flutter/flutter.git
-        export PATH=$PATH:$HOME/flutter/bin
-
-    - name: Download and install Gradle
-      run: |
-        cd $HOME
-        wget https://services.gradle.org/distributions/gradle-8.3-bin.zip
-        unzip -d gradle gradle-8.3-bin.zip
-        export PATH=$PATH:$HOME/gradle/gradle-7.2/bin
+        export PATH=$PATH:$HOME/flutter/bin:$HOME/gradle/gradle-7.2/bin
 
     - name: Display Gradle version
       run: gradle --version
