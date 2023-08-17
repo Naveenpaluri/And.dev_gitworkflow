@@ -28,29 +28,25 @@ jobs:
         java-version: 17
         distribution: 'adopt'
 
-    - name: Set Environment Variables
+    - name: Set up Java environment
       run: |
-        echo "JAVA_HOME=/usr/lib/jvm/adoptopenjdk-17-hotspot" >> $GITHUB_ENV
-        echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
+        echo "export JAVA_HOME=/opt/jdk-17" >> $GITHUB_ENV
+        echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
 
     - name: Display Java Version
       run: java -version
 
     - name: Download Android SDK Command Line Tools
       run: |
-        cd /opt
+        mkdir /opt/android-sdk
+        cd /opt/android-sdk
         wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-        unzip commandlinetools-linux-10406996_latest.zip -d android-sdk
-
-    - name: Set up Android SDK environment
-      run: |
+        unzip commandlinetools-linux-10406996_latest.zip 
+        cd cmdline-tools/
+        mkdir latest
+        mv bin/ lib/ NOTICE.txt source.properties latest/
+        cd latest/bin/
         echo "export ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
         echo "export ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
         echo "export PATH=\$PATH:\$ANDROID_HOME/tools/bin:\$ANDROID_HOME/platform-tools" >> $GITHUB_ENV
-
-    - name: Install required SDK packages
-      run: |
-        source $GITHUB_ENV
         sdkmanager "platform-tools" "build-tools;30.0.3"
-
-    
