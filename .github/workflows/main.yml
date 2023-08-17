@@ -38,9 +38,13 @@ jobs:
 
     - name: Download Android SDK Command Line Tools
       run: |
-        wget -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-        unzip commandlinetools.zip -d $HOME/android-sdk
-
+        wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
+        unzip commandlinetools-linux-10406996_latest.zip -d $HOME/android-sdk
+        cd /android-sdk/cmdline-tools/
+        mkdir latest
+        mv bin/ lib/ NOTICE.txt source.properties latest/
+        sdkmanager "platform-tools" "build-tools;30.0.3"
+   
     - name: Set up Android SDK
       run: export ANDROID_SDK_ROOT=$HOME/android-sdk
 
