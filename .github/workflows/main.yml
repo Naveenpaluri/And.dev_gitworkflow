@@ -57,4 +57,4 @@ jobs:
         export PATH=$PATH:$HOME/flutter/bin:$HOME/gradle/gradle-7.2/bin
 
     - name: Display Gradle version
-      run: gradle --version
+      run: gradle -v
