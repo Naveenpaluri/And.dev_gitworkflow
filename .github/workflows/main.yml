@@ -26,9 +26,8 @@ jobs:
 
       - name: Download and Install Android SDK Command Line Tools
         run: |
-          apt-get install wget -y
-          wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-          unzip commandlinetools-linux-10406996_latest.zip -d android-sdk
+          curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
+          unzip commandlinetools.zip -d android-sdk
 
       - name: Set Android SDK Environment Variables
         run: |
@@ -38,4 +37,4 @@ jobs:
       - name: Display Java and Android SDK Versions
         run: |
           java -version
-          sdkmanager --version #version
+          sdkmanager --version
