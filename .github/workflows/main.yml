@@ -75,6 +75,12 @@ jobs:
          export PATH=$PATH:/opt/gradle/gradle-8.3/bin
          gradle -v
 
+    - name: Navigate to Project Directory
+      run: cd And.dev_gitworkflow/android/
+
+    - name: Build APK
+      run: flutter build apk
+
   
    
 
