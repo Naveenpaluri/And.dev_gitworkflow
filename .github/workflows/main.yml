@@ -54,6 +54,14 @@ jobs:
         echo "export ANDROID_SDK_ROOT=${android_sdk_root_path}" >> $GITHUB_ENV
         echo "export PATH=\$PATH:${android_home_path}/tools/bin:${android_home_path}/platform-tools:${android_sdk_root_path}/bin" >> $GITHUB_ENV
         yes | sdkmanager "platform-tools" "build-tools;30.0.3"
+    
+    - name: Install Flutter
+      run: |
+        wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
+        mkdir -p ~/development
+        tar xf flutter_linux_3.13.0-stable.tar.xz -C ~/development
+        echo "export PATH=\$PATH:\$HOME/development/flutter/bin" >> $GITHUB_ENV
+        flutter doctor
 
 
   
