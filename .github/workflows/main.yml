@@ -54,6 +54,8 @@ jobs:
         echo "export ANDROID_HOME=${android_home_path}" >> $GITHUB_ENV
         echo "export ANDROID_SDK_ROOT=${android_sdk_root_path}" >> $GITHUB_ENV
         echo "export PATH=\$PATH:${android_home_path}/tools/bin:${android_home_path}/platform-tools" >> $GITHUB_ENV
+        sdkmanager --version
+        sdkmanager --list
 
    
     - name: Install Flutter
