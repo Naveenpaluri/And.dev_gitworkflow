@@ -46,15 +46,18 @@ jobs:
         mkdir latest
         mv bin/ lib/ NOTICE.txt source.properties latest/
         cd latest/bin/
-        export ANDROID_HOME="/opt/android-sdk"
-        export ANDROID_SDK_ROOT="/opt/android-sdk"
+        echo 'export ANDROID_HOME="/opt/android-sdk"' >> $GITHUB_ENV
+        echo 'export ANDROID_SDK_ROOT="/opt/android-sdk"' >> $GITHUB_ENV
         export PATH=$PATH:/opt/android-sdk/cmdline-tools/latest/bin
         yes | ./sdkmanager --licenses
         yes | sdkmanager "platform-tools" "build-tools;30.0.3"
-        echo "export ANDROID_HOME=${ANDROID_HOME}" >> $GITHUB_ENV
-        echo "export ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}" >> $GITHUB_ENV
-        echo "export PATH=\$PATH:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools" >> $GITHUB_ENV
-        
+        echo 'export PATH="$PATH:/opt/android-sdk/cmdline-tools/latest/bin"' >> $GITHUB_ENV
+
+    - name: Display Android SDK Paths
+      run: |
+        echo "ANDROID_HOME: $ANDROID_HOME"
+        echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+        echo "PATH: $PATH"  
    
     - name: Install Flutter
       run: |
