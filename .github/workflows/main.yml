@@ -46,7 +46,7 @@ jobs:
         mkdir latest
         mv bin/ lib/ NOTICE.txt source.properties latest/
         cd latest/bin/
-        export PATH=$PATH:/opt/android-sdk/cmdline-tools/latest/bin
+       
         android_home_path="/opt/android-sdk"
         android_sdk_root_path="/opt/android-sdk"
         yes | ./sdkmanager --licenses
