@@ -76,7 +76,7 @@ jobs:
          gradle -v
 
     - name: Navigate to Project Directory
-      run: cd And.dev_gitworkflow/android/
+      run: cd android/
 
     - name: Build APK
       run: flutter build apk
