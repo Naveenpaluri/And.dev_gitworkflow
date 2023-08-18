@@ -57,7 +57,6 @@ jobs:
         mkdir -p ~/development
         tar xf flutter_linux_3.13.0-stable.tar.xz -C ~/development
         echo "export PATH=\$PATH:\$HOME/development/flutter/bin" >> $HOME/.bashrc
-        source $HOME/.bashrc
         
     - name: Display Flutter version
       run: flutter doctor
