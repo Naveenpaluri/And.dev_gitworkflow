@@ -56,7 +56,8 @@ jobs:
         wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
         mkdir -p ~/development
         tar xf flutter_linux_3.13.0-stable.tar.xz -C ~/development
-        echo "export PATH=\$PATH:\$HOME/development/flutter/bin/flutter" >> $HOME/.bashrc
+        echo "export PATH="$PATH:`pwd`/flutter/bin"
+
         
     - name: Display Flutter version
       run: flutter doctor
