@@ -63,6 +63,7 @@ jobs:
         wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
         tar xf flutter_linux_3.13.0-stable.tar.xz
         export PATH="$PATH:`pwd`/flutter/bin"
+        git config --global --add safe.directory /development/flutter
         flutter doctor
         
     - name: Install Gradle
