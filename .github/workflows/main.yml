@@ -64,7 +64,16 @@ jobs:
         tar xf flutter_linux_3.13.0-stable.tar.xz
         export PATH="$PATH:`pwd`/flutter/bin"
         flutter doctor
-
+        
+    - name: Install Gradle
+      run: |
+         cd 
+         mkdir /opt/gradle
+         cd /opt/gradle
+         wget https://services.gradle.org/distributions/gradle-8.3-bin.zip
+         unzip gradle-8.3-bin.zip
+         export PATH=$PATH:/opt/gradle/gradle-8.3/bin
+         gradle -v
 
   
    
