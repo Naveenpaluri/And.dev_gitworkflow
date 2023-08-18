@@ -55,6 +55,14 @@ jobs:
         echo "export ANDROID_SDK_ROOT=${android_sdk_root_path}" >> $GITHUB_ENV
         echo "export PATH=\$PATH:${android_home_path}/tools/bin:${android_home_path}/platform-tools:${android_sdk_root_path}/bin" >> $GITHUB_ENV
 
+    - name: Configure Flutter
+      run: flutter config --android-sdk /opt/android-sdk
+
+    - name: Install Android SDK Components
+      run: |
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+
     
     - name: Install Flutter
       run: |
