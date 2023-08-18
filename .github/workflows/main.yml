@@ -65,15 +65,8 @@ jobs:
         tar xf flutter_linux_3.13.0-stable.tar.xz
         export PATH="$PATH:`pwd`/flutter/bin"
         git config --global --add safe.directory /development/flutter
+        flutter config --android-sdk /opt/android-sdk
         flutter doctor
-
-    - name: Configure Flutter
-      run: flutter config --android-sdk /opt/android-sdk
-
-    - name: Install Android SDK Components
-      run: |
-        yes | sdkmanager --licenses
-        sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
         
     - name: Install Gradle
       run: |
