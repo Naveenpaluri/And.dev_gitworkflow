@@ -42,6 +42,8 @@ jobs:
         cd /opt/android-sdk
         wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
         unzip commandlinetools-linux-10406996_latest.zip 
+        export SDK_LICENSE=true
+
         cd cmdline-tools/
         mkdir latest
         mv bin/ lib/ NOTICE.txt source.properties latest/
