@@ -49,11 +49,11 @@ jobs:
         android_home_path="/opt/android-sdk"
         android_sdk_root_path="/opt/android-sdk"
         yes | ./sdkmanager --licenses
+        yes | sdkmanager "platform-tools" "build-tools;30.0.3"
         export PATH=$PATH:/opt/android-sdk/cmdline-tools/latest/bin
         echo "export ANDROID_HOME=${android_home_path}" >> $GITHUB_ENV
         echo "export ANDROID_SDK_ROOT=${android_sdk_root_path}" >> $GITHUB_ENV
         echo "export PATH=\$PATH:${android_home_path}/tools/bin:${android_home_path}/platform-tools:${android_sdk_root_path}/bin" >> $GITHUB_ENV
-        yes | sdkmanager "platform-tools" "build-tools;30.0.3"
 
     
     - name: Install Flutter
