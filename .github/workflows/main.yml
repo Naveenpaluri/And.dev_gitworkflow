@@ -59,10 +59,7 @@ jobs:
         apt-get update
         apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev
 
-    - name: Download and install Gradle
-      run: |
-        cd $HOME
-        sdk install gradle 8.3
+
         
     - name: Display Flutter version
       run: flutter doctor
