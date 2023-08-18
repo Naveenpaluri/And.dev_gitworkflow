@@ -52,7 +52,6 @@ jobs:
         yes | ./sdkmanager --licenses
         yes | sdkmanager "platform-tools" "build-tools;30.0.3"
         echo "export PATH=\$PATH:/opt/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
-        source $GITHUB_ENV
    
     - name: Display Android SDK Paths
       run: |
