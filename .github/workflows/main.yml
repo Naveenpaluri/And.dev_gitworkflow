@@ -48,10 +48,13 @@ jobs:
 
       - name: Download and install Flutter SDK
         run: |
+          cd 
+          mkdir /development
+          cd /development
           wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
-          mkdir -p $HOME/development
-          tar xf flutter_linux_3.13.0-stable.tar.xz -C $HOME/development
-          echo "PATH=\$PATH:$HOME/development/flutter/bin" >> $GITHUB_ENV
+          tar xf flutter_linux_3.13.0-stable.tar.xz
+          git config --global --add safe.directory /development/flutter
+          export PATH=$PATH:`pwd`/flutter/bin
           flutter config --android-sdk /opt/android-sdk
           yes | flutter doctor --android-licenses
           flutter doctor
