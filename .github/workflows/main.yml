@@ -17,7 +17,7 @@ jobs:
       - name: Update and Install Packages
         run: |
          apt-get update
-         apt-get install -y wget unzip curl git xz-utils
+         apt-get install -y wget unzip curl git xz-utils jq
 
     
       - name: Checkout code
