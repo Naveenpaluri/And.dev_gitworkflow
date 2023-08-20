@@ -54,7 +54,7 @@ jobs:
           wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
           tar xf flutter_linux_3.13.0-stable.tar.xz
           git config --global --add safe.directory /development/flutter
-          echo "PATH=$PATH:`pwd`/flutter/bin" >> $GITHUB_ENV
+          echo "PATH=\$PATH:$HOME/development/flutter/bin" >> $GITHUB_ENV
           flutter config --android-sdk /opt/android-sdk
           yes | flutter doctor --android-licenses
           flutter doctor
