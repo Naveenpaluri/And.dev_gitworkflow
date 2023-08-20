@@ -28,11 +28,12 @@ jobs:
           cd cmdline-tools/
           mkdir latest
           mv bin/ lib/ NOTICE.txt source.properties latest/
+          chmod +x latest/bin/sdkmanager  # Make sure sdkmanager is executable
           echo "ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
           echo "PATH=\$PATH:/opt/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
-          yes | ./sdkmanager --licenses
-          yes | sdkmanager "platform-tools" "build-tools;30.0.3"
+          yes | ./latest/bin/sdkmanager --licenses
+          yes | ./latest/bin/sdkmanager "platform-tools" "build-tools;30.0.3"
 
       - name: Download and install Flutter SDK
         run: |
