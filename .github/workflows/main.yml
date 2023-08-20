@@ -47,11 +47,14 @@ jobs:
 
 
       - name: Download and install Flutter SDK
-        uses: subosito/flutter-action@v2
+        uses: mobiledevops/flutter-sdk-action@v1.0.0
         with:
           # 11
-          flutter-version: "3.0.0"
+          flutter-version: "3.7.7"
           channel: 'stable'
+      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.7.7-x64
+      - run: flutter --version
+      - run: flutter doctor
 
 
 
@@ -72,5 +75,4 @@ jobs:
       - name: Build APK
         working-directory: ./android
         run: |
-          git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.0.0-x64
           flutter build apk
