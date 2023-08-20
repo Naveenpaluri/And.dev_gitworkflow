@@ -72,4 +72,5 @@ jobs:
       - name: Build APK
         working-directory: ./android
         run: |
+          git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.0.0-x64
           flutter build apk
