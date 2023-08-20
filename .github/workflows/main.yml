@@ -1,4 +1,4 @@
-name: Build and Archive APK/AAB
+name: Build APKs
 
 on:
   push:
@@ -9,81 +9,52 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: ubuntu:latest
-      options: --user root
-
     steps:
-    - name: Update and Install Packages
-      run: |
-        apt-get update
-        apt-get install -y wget unzip curl git xz-utils
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Set up Java 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adopt'
 
-    - name: Set up Java 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: 17
-        distribution: 'adopt'
+      - name: Download and install Android SDK Command Line Tools
+        run: |
+          mkdir /opt/android-sdk
+          cd /opt/android-sdk
+          wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
+          unzip commandlinetools-linux-10406996_latest.zip
+          cd cmdline-tools/
+          mkdir latest
+          mv bin/ lib/ NOTICE.txt source.properties latest/
+          echo "ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
+          echo "PATH=\$PATH:/opt/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
+          yes | ./sdkmanager --licenses
+          yes | sdkmanager "platform-tools" "build-tools;30.0.3"
 
-    - name: Set up Java environment
-      run: |
-        echo "export JAVA_HOME=/opt/jdk-17" >> $GITHUB_ENV
-        echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
+      - name: Download and install Flutter SDK
+        run: |
+          wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
+          mkdir -p $HOME/development
+          tar xf flutter_linux_3.13.0-stable.tar.xz -C $HOME/development
+          echo "PATH=\$PATH:$HOME/development/flutter/bin" >> $GITHUB_ENV
 
-    - name: Display Java Version
-      run: java -version
+      - name: Display Environment Variables
+        run: |
+          echo "JAVA_HOME: $JAVA_HOME"
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          echo "PATH: $PATH"
 
-    - name: Download Android SDK Command Line Tools
-      run: |
-        mkdir /opt/android-sdk
-        cd /opt/android-sdk
-        wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-        unzip commandlinetools-linux-10406996_latest.zip 
-        cd cmdline-tools/
-        mkdir latest
-        mv bin/ lib/ NOTICE.txt source.properties latest/
-        cd latest/bin/
-        echo "export ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
-        echo "export ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
-        export PATH=$PATH:/opt/android-sdk/cmdline-tools/latest/bin
-        yes | ./sdkmanager --licenses
-        yes | sdkmanager "platform-tools" "build-tools;30.0.3"
-        echo "export PATH=\$PATH:/opt/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
-   
-    - name: Display Android SDK Paths
-      run: |
-        echo "ANDROID_HOME: $ANDROID_HOME"
-        echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-        echo "PATH: $PATH"
-  
-    - name: Install Flutter
-      run: |
-        cd 
-        mkdir /development
-        cd /development
-        wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
-        tar xf flutter_linux_3.13.0-stable.tar.xz
-        git config --global --add safe.directory /development/flutter
-        export PATH=$PATH:`pwd`/flutter/bin
-        flutter config --android-sdk /opt/android-sdk
-        yes | flutter doctor --android-licenses
-        flutter doctor
-        
-    - name: Install Gradle
-      run: |
-         cd 
-         mkdir /opt/gradle
-         cd /opt/gradle
-         wget https://services.gradle.org/distributions/gradle-8.3-bin.zip
-         unzip gradle-8.3-bin.zip
-         export PATH=$PATH:/opt/gradle/gradle-8.3/bin
-         gradle -v
+      - name: Display Java Version
+        run: java -version
 
-      
+      - name: Display Flutter Version
+        run: flutter --version
 
-  
-   
-
+      - name: Build APK
+        working-directory: ./android
+        run: |
+          flutter build apk
