@@ -82,5 +82,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: apks
-          path: $GITHUB_WORKSPACE/apks/
-     
+          path: build/app/outputs/flutter-apk/
