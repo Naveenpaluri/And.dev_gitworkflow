@@ -80,7 +80,6 @@ jobs:
           # Create the builds directory in the apk-builds branch
           git checkout -b apk-builds
           mkdir -p builds
-          cd .. 
           # Copy APKs to the builds directory
           cp -r build/app/outputs/flutter-apk/* builds/
           git add builds/
