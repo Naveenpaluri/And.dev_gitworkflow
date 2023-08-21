@@ -75,6 +75,7 @@ jobs:
       - name: Build APK
         working-directory: ./android
         run: |
+          git config --global --add safe.directory /__w/And.dev_gitworkflow/And.dev_gitworkflow
           flutter build apk
           # Create the builds directory in the apk-builds branch
           git checkout -b apk-builds
