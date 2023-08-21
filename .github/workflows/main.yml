@@ -76,7 +76,7 @@ jobs:
         working-directory: ./android
         run: |
           flutter build apk
-          cp -r ./build/app/outputs/apk/release/ $GITHUB_WORKSPACE/apks/
+          cp -r ./build/outputs/flutter-apk/ $GITHUB_WORKSPACE/apks/
      
       - name: Archive APKs
         uses: actions/upload-artifact@v2
