@@ -76,6 +76,7 @@ jobs:
         working-directory: ./android
         run: |
           flutter build apk
+          cd .. 
           cp -r .build/app/outputs/flutter-apk/ $GITHUB_WORKSPACE/apks/
      
       - name: Archive APKs
