@@ -83,7 +83,7 @@ jobs:
           cd .. 
           # Copy APKs to the builds directory
           cp -r build/app/outputs/flutter-apk/* builds/
-          git add .
+          git add builds/
           git commit -m "Add generated APKs"
           git push origin apk-builds
      
