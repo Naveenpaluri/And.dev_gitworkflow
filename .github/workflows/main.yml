@@ -75,11 +75,12 @@ jobs:
         run: |
           flutter build apk
           cd .. 
+          mkdir -p $GITHUB_WORKSPACE/apks/
           cp -r build/app/outputs/flutter-apk/ $GITHUB_WORKSPACE/apks/
      
       - name: Archive APKs
         uses: actions/upload-artifact@v2
         with:
           name: apks
-          path: apks/
+          path: $GITHUB_WORKSPACE/apks/
      
