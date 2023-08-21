@@ -77,7 +77,3 @@ jobs:
         run: |
           flutter build apk
 
-      - name: Copy APKs to Desired Directory
-        run: |
-          mkdir -p $GITHUB_WORKSPACE/build/app/outputs/flutter-apk/
-          cp -r ./android/app/build/outputs/flutter-apk/. $GITHUB_WORKSPACE/build/app/outputs/flutter-apk/
