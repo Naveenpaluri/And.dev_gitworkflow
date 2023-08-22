@@ -63,9 +63,6 @@ jobs:
       - run: flutter doctor
 
 
-      - name: Display Java Version
-        run: java -version
-
       - name: Display Flutter Version
         run: flutter --version
 
