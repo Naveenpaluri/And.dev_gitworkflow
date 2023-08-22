@@ -65,16 +65,11 @@ jobs:
 
       - name: Display Flutter Version
         run: flutter --version
-
-      - name: Build APK
-        run: |
-          flutter build apk
           
-      - name: Build and Sign APK
-        working-directory: ./android
+      - name: Build release APK
         run: |
-          flutter build apk --release
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "$KEYSTORE_FILE_PATH" -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" "build/app/outputs/flutter-apk/app-release.apk" "$KEY_ALIAS"
+          cd android
+          ./gradlew assembleRelease -Pkeystore_file="$KEYSTORE_FILE_PATH" -Pkey_alias="$KEY_ALIAS" -Pkey_password="$KEY_PASSWORD" -Pkeystore_password="$KEYSTORE_PASSWORD"
 
       - name: Archive APK
         uses: actions/upload-artifact@v2
