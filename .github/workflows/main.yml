@@ -69,13 +69,6 @@ jobs:
 
       - name: Display Flutter Version
         run: flutter --version
-
-      - name: Debug Environment Variables
-        run: |
-          echo "KEY_ALIAS: ${{ secrets.KEY_ALIAS }}"
-          echo "KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}"
-          echo "KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}"
-          echo "KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}"
           
   
       - name: Build APK
@@ -83,14 +76,14 @@ jobs:
         run: |
           flutter build apk 
      
-      - name: Sign APKs
+      - name: Build and Sign APK
+        working-directory: ./android
         run: |
-          mkdir -p $GITHUB_WORKSPACE/signed_apks/
-          cp -r build/app/outputs/flutter-apk/* $GITHUB_WORKSPACE/signed_apks/
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore $KEYSTORE_FILE -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD $GITHUB_WORKSPACE/signed_apks/app-release.apk $KEY_ALIAS
+          flutter build apk --release
+          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "${{ secrets.KEYSTORE_FILE }}" -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -keypass "${{ secrets.KEY_PASSWORD }}" "build/app/outputs/flutter-apk/app-release.apk" "${{ secrets.KEY_ALIAS }}"
 
-      - name: Archive Signed APKs
+      - name: Archive APK
         uses: actions/upload-artifact@v2
         with:
-          name: signed_apks
-          path: $GITHUB_WORKSPACE/signed_apks/
+          name: app-release-signed
+          path: ./android/app-release-signed.apk
