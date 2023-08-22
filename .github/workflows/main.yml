@@ -73,7 +73,7 @@ jobs:
       - name: Build APK
         working-directory: ./android
         run: |
-          flutter build apk
+          flutter build apk --debug
      
       - name: Sign APKs
         run: |
