@@ -54,14 +54,14 @@ android {
         versionName flutterVersionName
     }
 
-    signingConfigs {
+   signingConfigs {
     release {
-            keyAlias System.getenv("KEY_ALIAS")
-            keyPassword System.getenv("KEY_PASSWORD")
-            storeFile file(System.getenv("KEYSTORE_FILE"))
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-        }
-  }
+        storeFile file(project.property("KEYSTORE_FILE"))
+        keyAlias project.property("KEY_ALIAS")
+        keyPassword project.property("KEY_PASSWORD")
+        storePassword project.property("KEYSTORE_PASSWORD")
+    }
+}
 
     buildTypes {
         release {
