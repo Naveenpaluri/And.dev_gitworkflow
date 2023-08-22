@@ -69,7 +69,11 @@ jobs:
       - name: Build release APK
         run: |
           cd android
-          ./gradlew assembleRelease -Pkeystore_file="$KEYSTORE_FILE_PATH" -Pkey_alias="$KEY_ALIAS" -Pkey_password="$KEY_PASSWORD" -Pkeystore_password="$KEYSTORE_PASSWORD"
+          flutter build apk --release
+      
+      - name: Sign APK
+        run: |
+          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "$KEYSTORE_FILE_PATH" -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" "build/app/outputs/flutter-apk/app-release.apk" "$KEY_ALIAS"
 
       - name: Archive APK
         uses: actions/upload-artifact@v2
