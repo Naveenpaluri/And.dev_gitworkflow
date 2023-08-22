@@ -71,7 +71,7 @@ jobs:
           cd android
           flutter build apk --release
       
-      - name: Signed APK 
+      - name: Sign APK 
         run: |
           jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "$KEYSTORE_FILE_PATH" -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" "build/app/outputs/flutter-apk/app-release.apk" "$KEY_ALIAS"
 
