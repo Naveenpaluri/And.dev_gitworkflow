@@ -56,10 +56,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'your_key_alias'
-            keyPassword 'flutter'
-            storeFile file('/home/ec2-user/my-release-key.keystore')
-            storePassword 'flutter'
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+            storeFile file(System.getenv("KEYSTORE_FILE"))
+            storePassword System.getenv("KEYSTORE_PASSWORD")
         }
     }
 
