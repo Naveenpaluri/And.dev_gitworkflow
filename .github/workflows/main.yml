@@ -75,8 +75,14 @@ jobs:
         run: |
           flutter build apk
      
-      - name: Archive APKs
+      - name: Sign APKs
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/signed_apks/
+          cp -r build/app/outputs/flutter-apk/* $GITHUB_WORKSPACE/signed_apks/
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore $KEYSTORE_FILE -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD $GITHUB_WORKSPACE/signed_apks/app-release.apk $KEY_ALIAS
+
+      - name: Archive Signed APKs
         uses: actions/upload-artifact@v2
         with:
-          name: apks
-          path: build/app/outputs/flutter-apk/
+          name: signed_apks
+          path: $GITHUB_WORKSPACE/signed_apks/
