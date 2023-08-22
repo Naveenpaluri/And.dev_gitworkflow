@@ -70,6 +70,13 @@ jobs:
       - name: Display Flutter Version
         run: flutter --version
 
+      - name: Debug Environment Variables
+        run: |
+          echo "KEY_ALIAS: $KEY_ALIAS"
+          echo "KEY_PASSWORD: $KEY_PASSWORD"
+          echo "KEYSTORE_FILE: $KEYSTORE_FILE"
+          echo "KEYSTORE_PASSWORD: $KEYSTORE_PASSWORD"
+  
       - name: Build APK
         working-directory: ./android
         run: |
