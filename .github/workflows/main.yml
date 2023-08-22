@@ -19,6 +19,14 @@ jobs:
          apt-get update
          apt-get install -y wget unzip curl git xz-utils jq
 
+      - name: Set up environment variables
+        env:
+          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+
+
     
       - name: Checkout code
         uses: actions/checkout@v2
@@ -62,14 +70,6 @@ jobs:
 
       - name: Display Flutter Version
         run: flutter --version
-        
-      - name: Set up environment variables
-        env:
-          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-
           
      
       - name: Build and Sign APK
