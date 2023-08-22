@@ -62,9 +62,6 @@ jobs:
       - run: flutter --version
       - run: flutter doctor
 
-
-      - name: Display Flutter Version
-        run: flutter --version
           
       - name: Build release APK
         run: |
