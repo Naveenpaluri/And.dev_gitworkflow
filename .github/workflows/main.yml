@@ -70,11 +70,6 @@ jobs:
       - name: Display Flutter Version
         run: flutter --version
           
-  
-      - name: Build APK
-        working-directory: ./android
-        run: |
-          flutter build apk 
      
       - name: Build and Sign APK
         working-directory: ./android
