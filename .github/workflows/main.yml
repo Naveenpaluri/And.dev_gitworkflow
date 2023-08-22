@@ -74,9 +74,10 @@ jobs:
       - name: Sign APK 
         run: |
           jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "$KEYSTORE_FILE_PATH" -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" "build/app/outputs/flutter-apk/app-release.apk" "$KEY_ALIAS"
-
+          mkdir -p "$GITHUB_WORKSPACE/build/app/outputs/signed-apk"
+          cp "build/app/outputs/flutter-apk/app-release.apk" "$GITHUB_WORKSPACE/build/app/outputs/signed-apk/app-release-signed.apk"
       - name: Archive APK
         uses: actions/upload-artifact@v2
         with:
           name: app-release-signed
-          path: ./android/app-release-signed.apk
+          path: build/app/outputs/signed-apk/app-release-signed.apk
